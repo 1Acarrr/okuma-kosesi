@@ -111,16 +111,16 @@ export default function SettingsPage() {
       <Head>
         <title>Ayarlar | Okuma Köşesi</title>
       </Head>
-      <main className="w-full flex-1 bg-dark-bg-primary px-4 py-8">
+      <main className="w-full bg-dark-bg-primary px-4 py-8 md:py-12 mb-10">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-2 text-warm-beige">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold mb-2 text-warm-beige">
             Ayarlar
           </h2>
-          <p className="text-text-medium mb-10 uppercase tracking-[0.3em] text-[10px] font-light">
+          <p className="text-text-medium mb-8 uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[9px] sm:text-[10px] font-light">
             PROFİL BİLGİLERİNİZİ VE ŞİFRENİZİ GÜNCELLEYİN
           </p>
 
-          <div className="glass border border-warm-beige/10 rounded-2xl p-6 md:p-8 shadow-soft-lg">
+          <div className="glass border border-warm-beige/10 rounded-2xl p-5 sm:p-6 md:p-8 shadow-soft-lg">
             {error && (
               <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-sm flex items-center gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>

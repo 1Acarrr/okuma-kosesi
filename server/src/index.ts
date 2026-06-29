@@ -88,6 +88,19 @@ async function startServer() {
     process.on('unhandledRejection', (reason, promise) => {
       console.error('Unhandled rejection at:', promise, 'reason:', reason);
     });
+
+    // Render Free Tier Keep-Alive Ping (Her 14 dakikada bir kendi kendine istek atar)
+    const RENDER_URL = process.env.RENDER_EXTERNAL_URL || 'https://okuma-kosesi-server.onrender.com';
+    setInterval(() => {
+      import('https').then(({ get }) => {
+        get(`${RENDER_URL}/api/health`, (res) => {
+          console.log(`Keep-alive ping sent to ${RENDER_URL}/api/health. Status: ${res.statusCode}`);
+        }).on('error', (err) => {
+          console.error('Keep-alive ping failed:', err.message);
+        });
+      });
+    }, 14 * 60 * 1000); // 14 dakika
+
   } catch (error) {
     console.error('Failed to start server:', error);
     process.exit(1);
