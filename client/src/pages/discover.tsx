@@ -398,11 +398,6 @@ export default function DiscoverPage() {
     document.getElementById(`scroll-${id}`)?.scrollBy({ left: dir === 'left' ? -380 : 380, behavior: 'smooth' });
   };
 
-  const scrollToCategory = (id: string) => {
-    const el = document.getElementById(`category-${id}`);
-    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 130, behavior: 'smooth' });
-  };
-
   const renderBookCard = (book: GoogleBookItem, layout: 'grid' | 'carousel') => {
     const info = book.volumeInfo;
     const cover = info.imageLinks?.thumbnail?.replace('http:', 'https:');
@@ -441,8 +436,6 @@ export default function DiscoverPage() {
       </div>
     );
   };
-
-  const loadedCategoryIds = new Set(categories.map(c => c.id));
 
   return (
     <main className="relative min-h-screen bg-dark-bg-primary text-text-light font-sans selection:bg-warm-beige/30 overflow-x-hidden pb-8">

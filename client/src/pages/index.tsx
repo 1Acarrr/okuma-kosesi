@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 
 const videos = [
   { id: 1, src: 'https://kaecenmrjpucdkbddodz.supabase.co/storage/v1/object/public/ambience-media/library/video_1.mp4', name: 'Kuş Cıvıltısı' },
