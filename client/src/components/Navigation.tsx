@@ -122,7 +122,7 @@ export const Navigation: React.FC = () => {
         </Link>
 
         {/* Orta Taraf - Desktop Navigation Links (sadece lg ve üzeri ekranlarda görünür) */}
-        <div className="hidden lg:flex items-center justify-center flex-1 gap-2 mx-4">
+        <div className="hidden lg:flex items-center justify-end flex-1 gap-2 mx-4 sm:mx-8">
           {navLinks.map((link) => (
             <Link
               key={link.href}

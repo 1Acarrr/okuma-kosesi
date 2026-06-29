@@ -4,6 +4,20 @@ import Head from 'next/head';
 import apiClient from '../lib/api';
 import { useAppStore } from '../lib/store';
 
+// Göz ikonu SVG bileşenleri
+const EyeIcon = ({ className = "w-5 h-5" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+  </svg>
+);
+
+const EyeSlashIcon = ({ className = "w-5 h-5" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+  </svg>
+);
+
 export default function SettingsPage() {
   const router = useRouter();
   const { isAuthenticated, user, setAuth } = useAppStore();
@@ -14,6 +28,12 @@ export default function SettingsPage() {
   const [email, setEmail] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  // Visibility State
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Status State
   const [loading, setLoading] = useState(false);
@@ -38,6 +58,13 @@ export default function SettingsPage() {
     e.preventDefault();
     setError('');
     setSuccess('');
+
+    // Form validation
+    if (newPassword && newPassword !== confirmPassword) {
+      setError('Yeni şifreler eşleşmiyor. Lütfen iki alana da aynı şifreyi girdiğinizden emin olun.');
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -62,6 +89,7 @@ export default function SettingsPage() {
       setSuccess(message || 'Profiliniz başarıyla güncellendi.');
       setCurrentPassword('');
       setNewPassword('');
+      setConfirmPassword('');
 
       // Clear success message after 5 seconds
       setTimeout(() => setSuccess(''), 5000);
@@ -141,24 +169,62 @@ export default function SettingsPage() {
                 
                 <div>
                   <label className="block text-sm font-medium text-text-light mb-2">Mevcut Şifreniz</label>
-                  <input
-                    type="password"
-                    value={currentPassword}
-                    onChange={(e) => setCurrentPassword(e.target.value)}
-                    className="w-full px-4 py-3 bg-dark-bg-secondary border border-dark-bg-darker/60 rounded-xl text-text-light placeholder-text-medium focus:outline-none focus:border-warm-beige focus:ring-2 focus:ring-warm-beige/40 transition"
-                    placeholder="Sadece şifre değiştirecekseniz girin"
-                  />
+                  <div className="relative">
+                    <input
+                      type={showCurrentPassword ? "text" : "password"}
+                      value={currentPassword}
+                      onChange={(e) => setCurrentPassword(e.target.value)}
+                      className="w-full px-4 py-3 bg-dark-bg-secondary border border-dark-bg-darker/60 rounded-xl text-text-light placeholder-text-medium focus:outline-none focus:border-warm-beige focus:ring-2 focus:ring-warm-beige/40 transition pr-12"
+                      placeholder="Sadece şifre değiştirecekseniz girin"
+                    />
+                    <button 
+                      type="button"
+                      onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-text-medium hover:text-warm-beige transition-colors"
+                    >
+                      {showCurrentPassword ? <EyeSlashIcon /> : <EyeIcon />}
+                    </button>
+                  </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-text-light mb-2">Yeni Şifreniz</label>
-                  <input
-                    type="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    className="w-full px-4 py-3 bg-dark-bg-secondary border border-dark-bg-darker/60 rounded-xl text-text-light placeholder-text-medium focus:outline-none focus:border-warm-beige focus:ring-2 focus:ring-warm-beige/40 transition"
-                    placeholder="Sadece şifre değiştirecekseniz girin"
-                  />
+                  <div className="relative">
+                    <input
+                      type={showNewPassword ? "text" : "password"}
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      className="w-full px-4 py-3 bg-dark-bg-secondary border border-dark-bg-darker/60 rounded-xl text-text-light placeholder-text-medium focus:outline-none focus:border-warm-beige focus:ring-2 focus:ring-warm-beige/40 transition pr-12"
+                      placeholder="Yeni şifrenizi girin"
+                    />
+                    <button 
+                      type="button"
+                      onClick={() => setShowNewPassword(!showNewPassword)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-text-medium hover:text-warm-beige transition-colors"
+                    >
+                      {showNewPassword ? <EyeSlashIcon /> : <EyeIcon />}
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-text-light mb-2">Yeni Şifreniz (Tekrar)</label>
+                  <div className="relative">
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      className="w-full px-4 py-3 bg-dark-bg-secondary border border-dark-bg-darker/60 rounded-xl text-text-light placeholder-text-medium focus:outline-none focus:border-warm-beige focus:ring-2 focus:ring-warm-beige/40 transition pr-12"
+                      placeholder="Yeni şifrenizi tekrar girin"
+                    />
+                    <button 
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-text-medium hover:text-warm-beige transition-colors"
+                    >
+                      {showConfirmPassword ? <EyeSlashIcon /> : <EyeIcon />}
+                    </button>
+                  </div>
                 </div>
               </div>
 
