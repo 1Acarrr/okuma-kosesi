@@ -25,7 +25,7 @@ export const DigitalClockCard: React.FC<DigitalClockCardProps> = ({
   const fullscreenRef = useRef<HTMLDivElement>(null);
 
   // İstatistik kaydetme hook'u
-  useFocusSession(isRunning, isInfinite, totalMinutesRef.current);
+  useFocusSession(isRunning, isInfinite);
 
   useEffect(() => {
     const onFullscreenChange = () => {

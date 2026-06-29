@@ -179,7 +179,7 @@ export default function TimerPage() {
     localStorage.setItem('okuma_timer_state', JSON.stringify(state));
   }, [minutes, seconds, isRunning, isInfinite, targetMinutes, initialLoadDone]);
 
-  useFocusSession(isRunning, isInfinite, totalMinutesRef.current);
+  useFocusSession(isRunning, isInfinite);
   const { isPlaying: isSoundPlaying, togglePlay: toggleSound, volume, setVolume } = useAudioPlayer(currentSoundUrl);
 
   // Sync YouTube Volume and Playback

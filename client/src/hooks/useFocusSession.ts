@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import apiClient from '../lib/api';
 
-export const useFocusSession = (isRunning: boolean, isInfinite: boolean, totalMinutes: number) => {
+export const useFocusSession = (isRunning: boolean, isInfinite: boolean) => {
   const lastSavedMinuteRef = useRef<number>(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const minuteCounterRef = useRef<number>(0);
