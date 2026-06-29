@@ -13,7 +13,9 @@ export const initializeDatabase = async () => {
 
     console.log('✅ MongoDB connected successfully');
 
-    // List collections to verify we are in the right place
+    if (!mongoose.connection.db) {
+      throw new Error("Database connection failed");
+    }
     const collections = await mongoose.connection.db.listCollections().toArray();
     console.log('📚 Available Collections:', collections.map(c => c.name).join(', ') || 'None (Empty DB)');
 

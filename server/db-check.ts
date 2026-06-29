@@ -9,14 +9,15 @@ const checkDb = async () => {
         const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/okuma-kosesi';
         console.log('Connecting to:', mongoUri);
         await mongoose.connect(mongoUri);
-        console.log('Connected!');
-
+        if (!mongoose.connection.db) {
+          throw new Error("Database connection failed");
+        }
         const collections = await mongoose.connection.db.listCollections().toArray();
-        console.log('Available Collections:', collections.map(c => c.name));
+        console.log('\n📚 Available Collections:', collections.map(c => c.name).join(', ') || 'None (Empty DB)');
 
         for (const coll of collections) {
             const count = await mongoose.connection.db.collection(coll.name).countDocuments();
-            console.log(`Collection [${coll.name}]: ${count} documents`);
+            console.log(`📊 Collection [${coll.name}]: ${count} documents`);
         }
 
         process.exit(0);
