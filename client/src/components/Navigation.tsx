@@ -198,6 +198,19 @@ export const Navigation: React.FC = () => {
                     <p className="text-sm font-semibold text-warm-beige font-serif">{user.name}</p>
                     <p className="text-xs text-text-medium mt-1">{user.email}</p>
                   </div>
+                  <div className="py-1">
+                    <Link
+                      href="/settings"
+                      onClick={() => setProfileDropdownOpen(false)}
+                      className={`flex items-center gap-3 px-4 py-2 transition-all ${
+                        router.pathname === '/settings'
+                          ? 'text-[#ffb347] bg-dark-bg-primary/50'
+                          : 'text-text-light hover:bg-dark-bg-primary/50 hover:text-[#ffb347]'
+                      }`}
+                    >
+                      <span className="text-sm">Ayarlar</span>
+                    </Link>
+                  </div>
                   <div className="border-t border-warm-beige/10 py-1">
                     <button
                       onClick={handleLogout}
@@ -303,6 +316,26 @@ export const Navigation: React.FC = () => {
                   </div>
                 ) : (
                   <div className="border-t border-warm-beige/20 py-1 bg-dark-bg-primary/30">
+                    <Link
+                      href="/settings"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-full flex items-center gap-3 px-5 py-3 text-text-light hover:bg-dark-bg-primary/50 hover:text-[#ffb347] transition-all border-b border-warm-beige/10"
+                    >
+                      <div className="relative w-5 h-5 opacity-90">
+                        <Image
+                          src="/istatistik.png"
+                          alt="Ayarlar"
+                          width={20}
+                          height={20}
+                          className="w-full h-full object-contain brightness-0 invert contrast-200 opacity-80"
+                          style={{
+                            mixBlendMode: 'screen',
+                            filter: 'brightness(0) invert(1)',
+                          }}
+                        />
+                      </div>
+                      <span className="text-sm font-medium">Ayarlar</span>
+                    </Link>
                     <button
                       onClick={handleLogout}
                       className="w-full flex items-center justify-center gap-3 px-4 py-3 text-red-400 hover:bg-red-900/20 hover:text-red-300 transition-all text-sm font-medium"

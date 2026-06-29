@@ -150,3 +150,71 @@ export const getProfile = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+export const updateProfile = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user._id;
+    const { name, email, currentPassword, newPassword } = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'Kullanıcı bulunamadı' });
+    }
+
+    // Update email
+    if (email) {
+      const normalizedEmail = email.toLowerCase().trim();
+      if (normalizedEmail !== user.email) {
+        const existingUser = await User.findOne({ email: normalizedEmail });
+        if (existingUser) {
+          return res.status(400).json({ message: 'Bu e-posta adresi zaten kullanılıyor' });
+        }
+        user.email = normalizedEmail;
+      }
+    }
+
+    // Update name
+    if (name) {
+      user.name = name.trim();
+    }
+
+    // Update password if requested
+    if (currentPassword && newPassword) {
+      const isValidPassword = await user.comparePassword(currentPassword);
+      if (!isValidPassword) {
+        return res.status(400).json({ message: 'Mevcut şifreniz hatalı' });
+      }
+      if (newPassword.length < 6) {
+        return res.status(400).json({ message: 'Yeni şifre en az 6 karakter olmalıdır' });
+      }
+      user.password = newPassword;
+    } else if (newPassword && !currentPassword) {
+       return res.status(400).json({ message: 'Şifrenizi değiştirmek için mevcut şifrenizi girmelisiniz' });
+    }
+
+    await user.save();
+
+    // Generate new token
+    const token = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_SECRET || 'your-secret-key',
+      { expiresIn: '7d' }
+    );
+
+    res.json({
+      message: 'Profil başarıyla güncellendi',
+      token,
+      user: {
+        id: user._id,
+        email: user.email,
+        name: user.name,
+      },
+    });
+  } catch (error: any) {
+    console.error('Update profile error:', error);
+    if (error.code === 11000) {
+      return res.status(400).json({ message: 'Bu e-posta adresi zaten kullanılıyor' });
+    }
+    res.status(500).json({ message: 'Profil güncellenirken bir hata oluştu', details: error.message });
+  }
+};
