@@ -159,7 +159,7 @@ export const Navigation: React.FC = () => {
         {/* Sağ Taraf - Profil ve Mobil Hamburger */}
         <div className="flex items-center gap-2 sm:gap-4 z-50">
           {isAuthenticated && user ? (
-            <div className="relative" ref={dropdownRef}>
+            <div className="relative hidden lg:block" ref={dropdownRef}>
               <button
                 onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
                 className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-dark-bg-primary/30 transition-all group"
@@ -177,12 +177,12 @@ export const Navigation: React.FC = () => {
                     }}
                   />
                 </div>
-                {/* Masaüstünde (lg) ismi göster, altındaki ekranlarda gizle */}
-                <span className="hidden lg:block text-text-light text-sm font-medium group-hover:text-[#ffb347] transition-colors">
+                {/* Masaüstünde (lg) ismi göster */}
+                <span className="text-text-light text-sm font-medium group-hover:text-[#ffb347] transition-colors">
                   {user.name}
                 </span>
                 <svg
-                  className={`hidden lg:block w-4 h-4 text-text-medium transition-transform ${profileDropdownOpen ? 'rotate-180' : ''}`}
+                  className={`w-4 h-4 text-text-medium transition-transform ${profileDropdownOpen ? 'rotate-180' : ''}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
