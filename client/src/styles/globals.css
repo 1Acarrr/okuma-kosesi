@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply transition-colors duration-200;
+}
+
+body {
+  @apply bg-dark-bg-primary text-text-light;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Standard caret color for inputs and textareas */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+textarea,
+[contenteditable="true"] {
+  caret-color: #dab98d;
+}
+
+*:not(input):not(textarea):not([contenteditable="true"]) {
+  caret-color: transparent !important;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Scroll Bar Styling */
+::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-dark-bg-secondary;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-warm-beige/50 rounded hover:bg-warm-beige;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(26, 26, 26, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Transparent PNG Support - Remove White Background */
+.png-remove-white {
+  mix-blend-mode: multiply;
+  filter: contrast(1.25);
+}
+
+/* Alternative if multiply is too dark */
+.png-remove-white-screen {
+  mix-blend-mode: screen;
+  filter: invert(1) contrast(1.25);
+}
+
+/* Force white background removal with CSS mask */
+.png-force-transparent {
+  mix-blend-mode: multiply;
+  filter: contrast(1.25);
+  isolation: isolate;
+}
