@@ -40,7 +40,7 @@ export default function FocusPage() {
   };
 
   return (
-    <main className="min-h-screen bg-dark-bg-primary px-4 py-8">
+    <main className="w-full flex-1 bg-dark-bg-primary px-4 py-8">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-serif font-bold mb-2 text-warm-beige">
           Ortam Seç

@@ -242,7 +242,7 @@ export default function BooksPage() {
   const bookQuotes = quotes.filter(q => q.bookId === selectedBook?.id);
 
   return (
-    <main className="min-h-screen bg-dark-bg-primary text-text-light px-6 py-12 font-sans selection:bg-warm-beige/30">
+    <main className="w-full flex-1 bg-dark-bg-primary px-4 py-8 font-sans selection:bg-warm-beige/30">
       <div className="max-w-7xl mx-auto">
 
         {/* Header Section */}

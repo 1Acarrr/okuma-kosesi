@@ -32,8 +32,8 @@ export const Footer: React.FC = () => {
           </Link>
 
           {/* Links and Copyright */}
-          <div className="flex flex-row items-center justify-end gap-2.5 sm:gap-8 md:gap-10 text-[10px] sm:text-[13px] md:text-[15px] font-sans text-text-medium whitespace-nowrap ml-auto">
-            <Link href="/about" className="hover:text-white transition-colors duration-200">
+          <div className="flex flex-row flex-wrap items-center justify-center sm:justify-end gap-x-4 sm:gap-x-8 gap-y-2 text-[10px] sm:text-[13px] md:text-[15px] font-sans text-text-medium ml-auto">
+            <Link href="/about" className="hover:text-white transition-colors duration-200 whitespace-nowrap">
               Hakkında
             </Link>
             <Link href="/contact" className="hover:text-white transition-colors duration-200">

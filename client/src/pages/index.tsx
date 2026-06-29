@@ -33,17 +33,17 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-dark-bg-primary">
+    <main className="w-full flex-1 bg-dark-bg-primary">
       {/* Video Carousel Section */}
-      <section className="relative py-12 md:py-16 flex items-center justify-center bg-dark-bg-primary">
+      <section className="relative py-8 md:py-16 flex items-center justify-center bg-dark-bg-primary">
         <div className="w-full max-w-7xl px-4">
-          <div className="flex flex-col items-center justify-center mb-10">
+          <div className="flex flex-col items-center justify-center mb-8 md:mb-10">
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif text-white mb-0 text-center leading-relaxed select-none opacity-90 px-2 sm:px-0">
               Okurken, çalışırken veya sadece durup nefes alırken…
             </p>
           </div>
-          {/* Video Container - Büyütülmüş ve Mobile Uyumlu (Telefonda daha dik/karemsi) */}
-          <div className="relative w-full aspect-[4/5] sm:aspect-square md:aspect-video flex items-center justify-center mb-6 md:mb-8">
+          {/* Video Container - Aspect Ratio fixed for Tablet/Mobile */}
+          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-video flex items-center justify-center mb-6 md:mb-8">
             {/* Video */}
             <div className="relative w-full h-full rounded-2xl overflow-hidden">
               {videos.map((video, index) => (
