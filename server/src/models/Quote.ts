@@ -35,7 +35,7 @@ const quoteSchema = new Schema<IQuote>({
     toJSON: {
         virtuals: true,
         versionKey: false,
-        transform: function (doc, ret) {
+        transform: function (doc, ret: any) {
             ret['id'] = ret._id.toString();
             delete ret._id;
         }
@@ -43,7 +43,7 @@ const quoteSchema = new Schema<IQuote>({
     toObject: {
         virtuals: true,
         versionKey: false,
-        transform: function (doc, ret) {
+        transform: function (doc, ret: any) {
             ret['id'] = ret._id.toString();
             delete ret._id;
         }

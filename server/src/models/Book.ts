@@ -46,7 +46,7 @@ const bookSchema = new Schema<IBook>({
   toJSON: {
     virtuals: true,
     versionKey: false,
-    transform: function (doc, ret) {
+    transform: function (doc, ret: any) {
       ret['id'] = ret._id.toString();
       delete ret._id;
     }
@@ -54,7 +54,7 @@ const bookSchema = new Schema<IBook>({
   toObject: {
     virtuals: true,
     versionKey: false,
-    transform: function (doc, ret) {
+    transform: function (doc, ret: any) {
       ret['id'] = ret._id;
       delete ret._id;
     }
